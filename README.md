@@ -1,5 +1,5 @@
 # Image Processing
-Tugas Besar Pengolahan Citra Digital<br/>
+Tugas Besar Pengolahan Citra Digital <i class="fa fa-check" aria-hidden="true"></i> <br/>
 <br/>
 <br/>
 <br/>
