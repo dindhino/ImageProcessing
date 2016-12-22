@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 07-Dec-2016 17:46:48
+% Last Modified by GUIDE v2.5 18-Dec-2016 21:45:24
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -366,7 +366,14 @@ switch x
         G = imrotate(G,60,'bilinear','crop');
     case 5
         G = imrotate(G,75,'bilinear','crop');
+    case 6
+        G = rotate90(G);
+    case 7
+        G = rotate90(G);
+        G = rotate90(G);
     otherwise
+        G = rotate90(G);
+        G = rotate90(G);
         G = rotate90(G);
 end
 imshow(G,[]);
@@ -858,18 +865,56 @@ end
 
 
 % --- Executes on button press in modusfiltering.
+% --- Modus Filtering ---
 function modusfiltering_Callback(hObject, eventdata, handles)
 % hObject    handle to modusfiltering (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+global G;
+global load;
+axes(handles.axes2);
+imshow(load,[]); pause(0.05);
+x = get(handles.popupmenu13,'Value');
+G = imnoise(G,'salt & pepper',0.02);
+switch x
+    case 1
+        G = moduss(G,3);
+    case 2
+        G = moduss(G,5);
+    case 3
+        G = moduss(G,7);
+    case 4
+        G = moduss(G,9);
+    otherwise
+        G = moduss(G,11);
+end
+imshow(G, []);
 
 % --- Executes on button press in medianfiltering.
+% --- Median Filtering ---
 function medianfiltering_Callback(hObject, eventdata, handles)
 % hObject    handle to medianfiltering (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+global G;
+global load;
+axes(handles.axes2);
+imshow(load,[]); pause(0.05);
+x = get(handles.popupmenu12,'Value');
+G = imnoise(G,'salt & pepper',0.02);
+switch x
+    case 1
+        G = medianfiltering(G,3);
+    case 2
+        G = medianfiltering(G,5);
+    case 3
+        G = medianfiltering(G,7);
+    case 4
+        G = medianfiltering(G,9);
+    otherwise
+        G = medianfiltering(G,11);
+end
+imshow(G, []);
 
 % --- Executes on selection change in popupmenu12.
 function popupmenu12_Callback(hObject, eventdata, handles)
@@ -1199,4 +1244,32 @@ switch x
         n = 4;
 end
 G = segmen(G,n);
+imshow(G,[]);
+
+
+% --- Executes on button press in konvolusi.
+% --- Konvolusi ---
+function konvolusi_Callback(hObject, eventdata, handles)
+% hObject    handle to konvolusi (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global G;
+global load;
+axes(handles.axes2);
+imshow(load,[]); pause(0.05);
+G = konvolusi(G);
+imshow(G,[]);
+
+
+% --- Executes on button press in blurring.
+% --- Blurring ---
+function blurring_Callback(hObject, eventdata, handles)
+% hObject    handle to blurring (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global G;
+global load;
+axes(handles.axes2);
+imshow(load,[]); pause(0.05);
+G = blurring(G);
 imshow(G,[]);
